@@ -551,7 +551,7 @@
             =^  [misc=@uwoo salt=@uvre]  gen  (kerf miss)
             =^  meow  gen  (emit ~ [%mew gunk sunk funk salt]~ %hop misc)
             =^  real  gen  $(n then.n, goal [%next [%this salt] meow])
-            [[what.real [%mer gunk sunk funk mere chin misc]] gen]
+            [[what.real [%mer gunk sunk funk mere chin then.real]] gen]
           ==
         =/  body=(list pole)
           ~[[%imm 0 gunk] [%imm (~(got by fizz.norm.h) hare.n) funk]]
