@@ -316,24 +316,9 @@
         ::  no need for check if result unused
         ?:  ?=(%none -.what.goal)
           $(n pell.n)
-        =^  tare  gen  rain
-        =^  tile  gen  vial
-        =^  fare  gen  rain
-        =^  file  gen  vial
-        =^  thin  gen
-          %:  emit
-            %:  ~(put by *(map @uvre (map @uwoo @uvre)))
-                r.what.goal
-                (~(gas by *(map @uwoo @uvre)) ~[[tile tare] [file fare]])
-            ==
-            ~
-            %hop  then.goal
-          ==
-        =^  tear  gen  (come tile thin)
-        =^  fear  gen  (come file thin)
-        =^  celt  gen  (emit ~ [%imm 0 tare]~ %hop tear)
-        =^  felt  gen  (emit ~ [%imm 1 fare]~ %hop fear)
-        $(goal [%pick celt felt])
+        =^  [z=@uwoo o=@uwoo]  gen
+          (phin r.what.goal then.goal)
+        $(goal [%pick z o])
       ::
           %pick
         =^  coat  gen  rain
@@ -386,25 +371,9 @@
           =^  than  gen  $(n that.n)
           =^  thin  gen  $(n this.n, then.goal then.than)
           (copy thin what.than)
-        =^  tare  gen  rain
-        =^  till  gen  vial
-        =^  fare  gen  rain
-        =^  fill  gen  vial
-        =^  ward  gen
-          %:  emit
-            %:  ~(put by *(map @uvre (map @uwoo @uvre)))
-                r.what.goal
-                (~(gas by *(map @uwoo @uvre)) ~[[till tare] [fill fare]])
-            ==
-            ~
-            %hop
-            then.goal
-          ==
-        =^  weir  gen  (come till ward)
-        =^  mere  gen  (come fill ward)
-        =^  ware  gen  (emit ~ [%imm 0 tare]~ %hop weir)
-        =^  mare  gen  (emit ~ [%imm 1 fare]~ %hop mere)
-        $(goal [%pick ware mare])
+        =^  [z=@uwoo o=@uwoo]  gen
+          (phin r.what.goal then.goal)
+        $(goal [%pick z o])
       ::
           %pick
         =^  tire  gen  rain
@@ -862,8 +831,8 @@
   ::
   ++  come                                              ::  label come-from
     |=  [f=@uwoo t=@uwoo]
-    ^-  [@uwoo _gen]
-    [f (emir f [~ ~ %hip f t])]
+    ^+  gen
+    (emir f [~ ~ %hip f t])
   ::  +phil: generate phi nodes
   ::
   ::    given a destination common to two branches, generate a phi node
@@ -881,9 +850,9 @@
     ?~  t
       ?>  ?=([^ ~] s)
       =^  f  gen  (emit b ~ %hop then.nex)
-      =^  z  gen  (come zb f)
-      =^  o  gen  (come ob f)
-      [[[%next z.i.s z] [%next o.i.s o]] gen]
+      =.  gen  (come zb f)
+      =.  gen  (come ob f)
+      [[[%next z.i.s zb] [%next o.i.s ob]] gen]
     ::
     ?:  ?=(%& -.i.t)
       ?>  ?=([^ ^] s)
@@ -915,6 +884,24 @@
                b  (~(put by b) r.p fib)
                t  [[%| h.p] [%| t.p] [%& `[c.p l r]] t.t]
     ==       ==
+  ::  +phin: +phil for loobean-product opcodes
+  ::
+  ++  phin
+    |=  [reg=@uvre ten=@uwoo]  ::  [%next [%this reg] ten]
+    ^-  [(pair @uwoo @uwoo) _gen]
+    =^  tare  gen  rain
+    =^  tile  gen  vial
+    =^  fare  gen  rain
+    =^  file  gen  vial
+    =^  thin  gen
+      =-  (emit - ~ %hop ten)
+      %+  ~(put by *(map @uvre (map @uwoo @uvre)))  reg
+      (~(gas by *(map @uwoo @uvre)) ~[[tile tare] [file fare]])
+    =.  gen  (come tile thin)
+    =.  gen  (come file thin)
+    =^  celt  gen  (emit ~ [%imm 0 tare]~ %hop tile)
+    =^  felt  gen  (emit ~ [%imm 1 fare]~ %hop file)
+    [[celt felt] gen]
   ::  +scar: generate fresh parameter lists
   ::
   ::    generate fresh parameter variables and provide them both in
