@@ -11,7 +11,7 @@
         |=  sam=*
         (mack gat(+6 +6.sam) [9 2 0 1])
       --
-  ^~  ^-  (map [path @] gate)
+  ^~  ^-  (map [path @] $-(* (unit)))
   %-  malt
   :~
     [[/dec/one/'k.139' 1] (fake dec)]
@@ -163,84 +163,71 @@
   =/  pile  (~(got by hill.mont) indy)
   =/  b=@uwoo  0w0
   =/  blob  (~(got by will.pile) b)
-  =/  rasp=(map @uvre (unit))  [[0v0 `s] ~ ~]
+  =/  rasp=(map @uvre *)  [[0v0 s] ~ ~]
   =|  mean=(list [@ta *])
+  =|  memo=(map [* * *] *)
+  !.
   |^  ^-  tone
     ?^  body.blob
       =*  i  i.body.blob
       ~?  ip  i
       ?-  -.i
-          %imm  $(rasp (p d.i `n.i), body.blob t.body.blob)
+          %imm  $(rasp (p d.i n.i), body.blob t.body.blob)
           %mov  $(rasp (mov s.i d.i), body.blob t.body.blob)
           %inc
-        =/  v  +:(g s.i)
-        ?^  v  [%2 mean]
-        $(rasp (p d.i `+(v)), body.blob t.body.blob)
+        ?^  v=(g s.i)
+          ~&  [indy=indy b=b i=i]
+          [%2 mean]
+        $(rasp (p d.i +(v)), body.blob t.body.blob)
       ::
-          %con
-        $(rasp (p d.i (both (g h.i) (g t.i))), body.blob t.body.blob)
+          %con  $(rasp (p d.i [(g h.i) (g t.i)]), body.blob t.body.blob)
           %hed
         =/  c  (g s.i)
-        %=  $
-          rasp       (p d.i ?.(?=([~ ^] c) ~ `-.u.c))
-          body.blob  t.body.blob
-        ==
+        $(rasp (p d.i ?@(c 0 -.c)), body.blob t.body.blob)
       ::
           %tal
         =/  c  (g s.i)
-        %=  $
-          rasp       (p d.i ?.(?=([~ ^] c) ~ `+.u.c))
-          body.blob  t.body.blob
-        ==
+        $(rasp (p d.i ?@(c 0 +.c)), body.blob t.body.blob)
       ::
-          %men
-        %=  $
-          body.blob  t.body.blob
-          mean       [[l.i (g s.i)] mean]
-        ==
-          %man
-        %=  $
-          body.blob  t.body.blob
-          mean       ~|(%mean-miss +.mean)
-        ==
+          %cel
+        ?@  c=(g p.i)
+          ~&  [indy=indy b=b i=i]
+          [%2 mean]
+        $(body.blob t.body.blob)
+      ::
+          %men  $(mean [[l.i (g s.i)] mean], body.blob t.body.blob)
+          %man  $(mean ~|(%mean-miss +.mean), body.blob t.body.blob)
           %slo  ~&  %slow-todo  $(body.blob t.body.blob)
           %sld  ~&  %slow-todo  $(body.blob t.body.blob)
-          %hit  ~&  %skip-hit  $(body.blob t.body.blob)
-          %slg  ~&  (g s.i)  $(body.blob t.body.blob)
-          %mew  ~&  %memo-todo  $(body.blob t.body.blob)
-          %tim  ~&  %skip-tim  $(body.blob t.body.blob)
-          %tom  ~&  %skip-tom  $(body.blob t.body.blob)
-          %mem  ~&  %skip-mem  $(body.blob t.body.blob)
-          %poi  $(rasp (p p.i ~), body.blob t.body.blob)
-          %ipb
-        |-  ^-  tone
-        ?~  p.i  ^$(body.blob t.body.blob)
-        =/  r  (~(get by rasp) i.p.i)
-        ?:  ?=([~ ~] r)  [%2 mean]
-        $(p.i t.p.i)
+          %hit  ~&  %skip-hit   $(body.blob t.body.blob)
+          %slg  ~>(%slog.[(g s.i)] $(body.blob t.body.blob))
+      ::
+          %mew
+        =/  k  [(g k.i) (g u.i) (g f.i)]
+        $(memo (~(put by memo) k (g r.i)), body.blob t.body.blob)
+      ::
+          %tim  ~&  %skip-tim   $(body.blob t.body.blob)
+          %tom  ~&  %skip-tom   $(body.blob t.body.blob)
+          %mem  ~&  %skip-mem   $(body.blob t.body.blob)
       ==
     =*  i  bend.blob
     ~?  ip  i
     ?-  -.i
-        %clq
-      =/  c  +:(g s.i)
-      ?^(c (goto z.i) (goto o.i))
-        %eqq  ?:(=(+:(g l.i) +:(g r.i)) (goto z.i) (goto o.i))
+        %clq  ?^(c=(g s.i) (goto z.i) (goto o.i))
+        %eqq  ?:(=((g l.i) (g r.i)) (goto z.i) (goto o.i))
         %brn
-      =/  c  +:(g s.i)
-      ?-  c
+      ?-  (g s.i)
         %0  (goto z.i)
         %1  (goto o.i)
-        *  [%2 mean]
+        *  ~&  [indy=indy b=b i=i]  [%2 mean]
       ==
     ::
         %hop  (goto t.i)
         %hip  ~&  %no-hip  !!
         %lnk
-      =/  r  (tine +:(g u.i) +:(g f.i))
+      =/  r  (tine (g u.i) (g f.i))
       ?.  ?=(%0 -.r)  r
-      =.  rasp  (p d.i `product.r)
-      (goto t.i)
+      (goto(rasp (p d.i product.r)) t.i)
     ::
         %cal
       =/  pyle  (~(got by hill.mont) a.i)
@@ -253,16 +240,19 @@
           rasp  (afar v.i walt.pyle)
         ==
       ?.  ?=(%0 -.r)  r
-      =.  rasp  (p d.i `product.r)
-      (goto t.i)
+      (goto(rasp (p d.i product.r)) t.i)
     ::
         %caf
-      =/  gate=(unit $-(* *))  (~(get by fire) n.i)
-      =/  subj  +:(g u.i)
+      =/  gate=(unit $-(* (unit)))  (~(get by fire) n.i)
+      =/  subj  (g u.i)
       ?.  ?=(~ gate)
+        ~&  caf-fire+n.i
         =/  r  (u.gate subj)
-        ~&  %caf-fire
-        ?:  ?=(~ r)  [%2 mean]  [%0 +:r]
+        ?~  r
+          ~&  [indy=indy b=b i=i]
+          [%2 mean]
+        [%0 u.r]
+      ~&  caf-miss+n.i
       =/  pyle  (~(got by hill.mont) a.i)
       =/  r
         %=  $
@@ -273,9 +263,9 @@
           rasp  (afar v.i walt.pyle)
         ==
       ?.  ?=(%0 -.r)  r
-      =.  rasp  (p d.i `product.r)
-      (goto t.i)
-        %lnt  (tine +:(g u.i) +:(g f.i))
+      (goto(rasp (p d.i product.r)) t.i)
+    ::
+        %lnt  (tine (g u.i) (g f.i))
         %jmp
       =/  pyle  (~(got by hill.mont) a.i)
       %=  $
@@ -287,12 +277,16 @@
       ==
     ::
         %jmf
-      =/  gate=(unit $-(* *))  (~(get by fire) n.i)
-      =/  subj  +:(g u.i)
+      =/  gate=(unit $-(* (unit)))  (~(get by fire) n.i)
+      =/  subj  (g u.i)
       ?.  ?=(~ gate)
+        ~&  jmf-fire+n.i
         =/  r  (u.gate subj)
-        ~&  %jmf-fire
-        ?:  ?=(~ r)  [%2 mean]  [%0 +:r]
+        ?~  r
+          ~&  [indy=indy b=b i=i]
+          [%2 mean]
+        [%0 u.r]
+      ~&  jmf-miss+n.i
       =/  pyle  (~(got by hill.mont) a.i)
       %=  $
         indy  a.i
@@ -301,10 +295,17 @@
         blob  (~(got by will.pyle) 0w1)
         rasp  (afar v.i walt.pyle)
       ==
+    ::
         %spy  ~&  %no-scry  !!
-        %mer  ~&  %skip-mem  (goto m.i)
-        %don  [%0 +:(g s.i)]
-        %bom  [%2 mean]
+    ::
+        %mer
+      =/  k  [(g k.i) (g u.i) (g f.i)]
+      ?~  v=(~(get by memo) k)
+        (goto m.i)
+      (goto(rasp (p d.i u.v)) i.i)
+    ::
+        %don  [%0 (g s.i)]
+        %bom  ~&  [indy=indy b=b i=i]  [%2 mean]
     ==
   ++  g
     |=  r=@uvre
@@ -312,18 +313,18 @@
     (~(got by rasp) r)
   ++  p
     ::  XX assert not present (bc SSA)
-    |=  [r=@uvre v=(unit)]
+    |=  [r=@uvre v=*]
     ~?  ip  [%p r v]
     (~(put by rasp) r v)
   ++  mov
     |=  [s=@uvre d=@uvre]
-    ^-  _rasp
+    ^+  rasp
     (~(put by rasp) d (~(got by rasp) s))
   ++  goto
     |=(b=@uwoo ^$(b b, blob (~(got by will.pile) b)))
   ++  afar
     |=  [v=(list @uvre) walt=(list @uvre)]
-    =|  m=(map @uvre (unit))
+    =|  m=(map @uvre *)
     |-  ^+  m
     ?~  v  ?>  =(~ walt)  ~?  ip  [%c m]  m
     ?>  ?=(^ walt)

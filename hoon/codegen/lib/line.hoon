@@ -177,11 +177,10 @@
         =^  loch  gen  (emit ~ ~ %don last)
         $(goal [%next [%this last] loch])
       ::
-          %pick
-        (mine sass.goal zero.goal)
+          %pick  bomb :: XX was +mine
       ::
           %next
-        =^  [bill=@uwoo left=need rite=need]  gen  (lyse goal)
+        =^  [left=need rite=need bill=@uwoo]  gen  (lyse goal)
         =^  tale  gen
           $(n rite.n, goal [%next rite bill])
         =^  hale  gen
@@ -218,7 +217,7 @@
           [[%next [%none ~] zero.goal] gen]
         ?:  =(1 moan.n)
           [[%next [%none ~] once.goal] gen]
-        (mine sass.goal zero.goal)
+        bomb :: XX was +mine
       ::
           %next
         =^  bill  gen  (mede then.goal moan.n what.goal)
@@ -306,13 +305,14 @@
           %done
         =^  last  gen  rain
         =^  hasp  gen  rain
-        =^  barf  gen  rain
         =^  tear  gen  (emit ~ [%imm 0 last]~ %don last)
         =^  fear  gen  (emit ~ [%imm 1 hasp]~ %don hasp)
-        $(goal [%pick barf tear fear])
+        $(goal [%pick tear fear])
       ::
           %next
-        ?:  ?=(%both -.what.goal)  (mine sass.what.goal then.goal)
+        ?:  ?=(?(^ %both) -.what.goal)
+          ?.  ?=([%both @ %& *] what.goal)  bomb
+          (mine r.what.goal then.goal)
         ::  no need for check if result unused
         ?:  ?=(%none -.what.goal)
           $(n pell.n)
@@ -323,7 +323,7 @@
         =^  thin  gen
           %:  emit
             %:  ~(put by *(map @uvre (map @uwoo @uvre)))
-                sass.what.goal
+                r.what.goal
                 (~(gas by *(map @uwoo @uvre)) ~[[tile tare] [file fare]])
             ==
             ~
@@ -333,8 +333,7 @@
         =^  fear  gen  (come file thin)
         =^  celt  gen  (emit ~ [%imm 0 tare]~ %hop tear)
         =^  felt  gen  (emit ~ [%imm 1 fare]~ %hop fear)
-        =^  barf  gen  rain
-        $(goal [%pick barf celt felt])
+        $(goal [%pick celt felt])
       ::
           %pick
         =^  coat  gen  rain
@@ -358,11 +357,13 @@
         $(n mall.n, goal [%next [%this pink] pike])
       ::
           %next
-        ?:  ?=(%both -.what.goal)  (mine sass.what.goal then.goal)
+        ?:  ?=(?(^ %both) -.what.goal)
+          ?.  ?=([%both @ %& *] what.goal)  bomb
+          (mine r.what.goal then.goal)
         =^  rink  gen
           ?:  ?=(%none -.what.goal)
             rain
-          [sass.what.goal gen]
+          [r.what.goal gen]
         =^  pink  gen  rain
         =^  bike  gen  (emit ~ [%inc pink rink]~ %hop then.goal)
         $(n mall.n, goal [%next [%this pink] bike])
@@ -375,11 +376,12 @@
         =^  hasp  gen  rain
         =^  reek  gen  (emit ~ [%imm 0 last]~ %don last)
         =^  riff  gen  (emit ~ [%imm 1 hasp]~ %don hasp)
-        =^  crap  gen  rain
-        $(goal [%pick crap reek riff])
+        $(goal [%pick reek riff])
       ::
           %next
-        ?:  ?=(%both -.what.goal)  (mine sass.what.goal then.goal)
+        ?:  ?=(?(^ %both) -.what.goal)
+          ?.  ?=([%both @ %& *] what.goal)  bomb
+          (mine r.what.goal then.goal)
         ?:  ?=(%none -.what.goal)
           =^  than  gen  $(n that.n)
           =^  thin  gen  $(n this.n, then.goal then.than)
@@ -391,7 +393,7 @@
         =^  ward  gen
           %:  emit
             %:  ~(put by *(map @uvre (map @uwoo @uvre)))
-                sass.what.goal
+                r.what.goal
                 (~(gas by *(map @uwoo @uvre)) ~[[till tare] [fill fare]])
             ==
             ~
@@ -402,8 +404,7 @@
         =^  mere  gen  (come fill ward)
         =^  ware  gen  (emit ~ [%imm 0 tare]~ %hop weir)
         =^  mare  gen  (emit ~ [%imm 1 fare]~ %hop mere)
-        =^  crap  gen  rain
-        $(goal [%pick crap ware mare])
+        $(goal [%pick ware mare])
       ::
           %pick
         =^  tire  gen  rain
@@ -420,16 +421,12 @@
         =^  fest  gen  $(n else.n, goal feel)
         =^  zest  gen  $(n then.n, goal teal)
         =^  [bead=need tile=@uwoo file=@uwoo]  gen  (sect zest fest)
-        =^  lead  gen  rain
-        =^  cond  gen  $(n what.n, goal [%pick lead tile file])
+        =^  cond  gen  $(n what.n, goal [%pick tile file])
         (copy cond bead)
       =^  fest  gen  $(n else.n)
       =^  zest  gen  $(n then.n)
       =^  [bead=need tile=@uwoo file=@uwoo]  gen  (sect zest fest)
-      =^  barf  gen  rain
-      =^  tool  gen  (emit ~ [%ipb ~[barf]]~ %hop tile)
-      =^  cond  gen
-        $(n what.n, goal [%pick barf tool file])
+      =^  cond  gen  $(n what.n, goal [%pick tile file])
       (copy cond bead)
     ::
         %eve
@@ -444,7 +441,7 @@
         $(goal [%next [%this last] dead])
       ::
           %pick
-        ?.  =(here.n 1)  (mine sass.goal zero.goal)
+        ?.  =(here.n 1)  bomb :: XX was +mine
         =^  flip  gen  rain
         =^  deep  gen  (emit ~ ~ %brn flip [zero once]:goal)
         $(goal [%next [%this flip] deep])
@@ -468,7 +465,7 @@
             %pick
           =^  tome  gen  (emit ~ [%tom ~]~ %hop zero.goal)
           =^  foam  gen  (emit ~ [%tom ~]~ %hop once.goal)
-          =^  race  gen  $(n then.n, goal [%pick sass.goal tome foam])
+          =^  race  gen  $(n then.n, goal [%pick tome foam])
           =^  tick  gen  (emit ~ [%tim ~]~ %hop then.race)
           [race(then tick) gen]
         ::
@@ -492,29 +489,24 @@
         (copy fake what.thin)
       ::
           ?(%hunk %hand %lose %mean %spot)
+        =^  real  gen
+          |-  ^-  [next _gen]
+          ?-  -.goal
+              %done  ^$(n then.n)  :: NB implicit %man
+              %pick
+            =^  mere  gen  rain
+            =^  chit  gen  (emit ~ ~ %brn mere zero.goal once.goal)
+            $(goal [%next [%this mere] chit])
+          ::
+              %next
+            =^  rugs  gen  (emit ~ [%man ~]~ %hop then.goal)
+            ^$(n then.n, then.goal rugs)
+          ==
+        =^  [body=(list pole) ned=need]  gen  (aver what.real)
         =^  mane  gen  rain
-        ?-  -.goal
-            %done
-          =^  real  gen  $(n then.n)
-          =^  dint  gen  (emit ~ [%men hint.n mane]~ %hop then.real)
-          =^  fake  gen  $(n vice.n, goal [%next [%this mane] dint])
-          (copy fake what.real)
-        ::
-            %pick
-          =^  tame  gen  (emit ~ [%man ~]~ %hop zero.goal)
-          =^  fame  gen  (emit ~ [%man ~]~ %hop once.goal)
-          =^  real  gen  $(n then.n, goal [%pick sass.goal tame fame])
-          =^  dint  gen  (emit ~ [%men hint.n mane]~ %hop then.real)
-          =^  fake  gen  $(n vice.n, goal [%next [%this mane] dint])
-          (copy fake what.real)
-        ::
-            %next
-          =^  rugs  gen  (emit ~ [%man ~]~ %hop then.goal)
-          =^  real  gen  $(n then.n, then.goal rugs)
-          =^  dint  gen  (emit ~ [%men hint.n mane]~ %hop then.real)
-          =^  fake  gen  $(n vice.n, goal [%next [%this mane] dint])
-          (copy fake what.real)
-        ==
+        =^  dint  gen  (emit ~ [[%men hint.n mane] body] %hop then.real)
+        =^  fake  gen  $(n vice.n, goal [%next [%this mane] dint])
+        (copy fake ned)
       ::
           ?(%live %slog)
         =^  clue  gen  rain
@@ -567,7 +559,7 @@
       =>  =*  dot  .
           ?:  ?=(%next -.goal)  dot
           =^  reg  gen  rain
-          =/  sit  ?:(?=(%done -.goal) [%don reg] [%brn reg |2.goal])
+          =/  sit  ?:(?=(%done -.goal) [%don reg] [%brn reg |1.goal])
           =^  uwo  gen  (emit ~ ~ sit)
           dot(goal [%next [%this reg] uwo])
       =^  [weft=@uwoo good=@uvre]  gen  (kerf goal)
@@ -637,36 +629,39 @@
   ::    one register and a label for the splitting code
   ::
   ++  kerf
-    |=  =next
+    |=  nex=next
     ^-  [[@uwoo @uvre] _gen]
-    =^  ir  gen  (kern ~ what.next)
-    ?~  pose.ir
-      [[then.next out.ir] gen]
-    =^  thin  gen  (emit ~ (flop pose.ir) %hop then.next)
-    [[thin out.ir] gen]
+    =^  [r=@uvre p=(list pole)]  gen  (kern ~ what.nex)
+    ?~  p  [[then.nex r] gen]
+    =^  u  gen  (emit ~ p %hop then.nex)
+    [[u r] gen]
   ::  +kern: split register to need (instruction list)
   ::
   ::    like +kerf but return (reversed) instruction list
   ::    instead of emitting basic block
   ::
   ++  kern
-    |=  [pose=(list pole) =need]
-    ^-  [[pose=(list pole) out=@uvre] _gen]
-    =/  tack=(list _need)  ~[need]
-    ?~  ui=(sass need)
-      =^  crap  gen  rain
-      [[~ crap] gen]
-    |-  ^-  [[pose=(list pole) out=@uvre] _gen]
-    ?~  tack
-      [[pose u.ui] gen]
-    =*  n  i.tack
-    ?.  ?=(%both -.n)
-      $(tack t.tack)
-    =/  lure  (sass left.n)
-    =/  rule  (sass rite.n)
-    =?  pose  ?=(^ lure)  [[%hed sass.n u.lure] pose]
-    =?  pose  ?=(^ rule)  [[%tal sass.n u.rule] pose]
-    $(tack [left.n rite.n t.tack])
+    |=  [p=(list pole) ned=need]
+    ^-  [[@uvre (list pole)] _gen]
+    =;  [[r=(unit @uvre) l=(list pole)] =_gen]
+      ?^  r  [[u.r l] gen]
+      ?>  ?=(~ l)
+      =^(r gen rain [[r ~] gen])
+    |-  ^-  [(pair (unit @uvre) (list pole)) _gen]
+    ?-    -.ned
+        ^
+      =^  r  gen  rain
+      $(ned [%both r | ned])
+    ::
+        %both
+      =^  r  gen  $(ned t.ned)
+      =^  l  gen  $(ned h.ned, p ?~(p.r q.r [[%tal r.ned u.p.r] q.r]))
+      =-  [[`r.ned ?:(c.ned - [[%cel r.ned] -])] gen]
+      ?~(p.l q.l [[%hed r.ned u.p.l] q.l])
+    ::
+        %this  [[`r.ned p] gen]
+        %none  [`p gen]
+    ==
   ::
   ++  emit                                              ::  add block
     |=  =blob
@@ -681,42 +676,59 @@
   ++  rain                                              ::  new register
     ^-  [@uvre _gen]
     [sans.pile.gen gen(sans.pile .+(sans.pile.gen))]
+  ::
+  ++  aver
+    |=  ned=need
+    =|  p=(list pole)
+    |-  ^-  [(pair (list pole) need) _gen]
+    ?+    -.ned
+      [[p ned] gen]
+    ::
+        ^
+      =^  q  gen  $(ned q.ned)
+      =^  p  gen  $(ned p.ned, p p.q)
+      =^  r  gen  rain
+      [[[[%cel r] p.p] [%both r & q.p q.q]] gen]
+    ::
+        %both
+      ?:  c.ned
+        [[p ned] gen]
+      =^  q  gen  $(ned t.ned)
+      =^  p  gen  $(ned h.ned, p p.q)
+      [[[[%cel r.ned] p.p] ned(c &, h q.p, t q.q)] gen]
+    ==
+  ::
+  ++  must
+    |=  ned=need
+    ^-  [(pair @uvre $>(?(%both %this) need)) _gen]
+    ?-  -.ned
+      ^      =^(r gen rain [[r %both r | ned] gen])
+      %both  [[r.ned ned] gen]
+      %this  [[r.ned ned] gen]
+      %none  =^(r gen rain [[r %this r] gen])
+    ==
   ::  +lyse: split need for cons
   ::
   ++  lyse
-    |=  =next
-    ^-  [[@uwoo need need] _gen]
-    ?-  -.what.next
+    |=  nex=next
+    ^-  [[need need @uwoo] _gen]
+    =*  ned  what.nex
+    ?-    -.ned
+        ^      [[p.ned q.ned then.nex] gen]
+    ::
+        %both
+      =^  l  gen  (must h.ned)
+      =^  r  gen  (must t.ned)
+      =^  u  gen  (emit ~ [%con p.l p.r r.ned]~ %hop then.nex)
+      [[q.l q.r u] gen]
+    ::
         %this
       =^  l  gen  rain
       =^  r  gen  rain
-      =^  lizz  gen  (emit ~ [%con l r sass.what.next]~ %hop then.next)
-      [[lizz [%this l] [%this r]] gen]
+      =^  u  gen  (emit ~ [%con l r r.ned]~ %hop then.nex)
+      [[[%this l] [%this r] u] gen]
     ::
-        %both
-      =^  ln=$<(%none need)  gen
-        ?.  ?=(%none -.left.what.next)  [left.what.next gen]
-        =^(r gen rain [[%this r] gen])
-      =^  rn=$<(%none need)  gen
-        ?.  ?=(%none -.rite.what.next)  [rite.what.next gen]
-        =^(r gen rain [[%this r] gen])
-      =/  l  +:(sass ln)
-      =/  r  +:(sass rn)
-      =^  lizz  gen  (emit ~ [%con l r sass.what.next]~ %hop then.next)
-      ^-  [[@uwoo need need] _gen]
-      [[lizz ln rn] gen]
-    ::
-        %none  [[then.next what.next what.next] gen]
-    ==
-  ::  +sass:  outermost register
-  ::
-  ++  sass
-    |=  =need
-    ^-  (unit @uvre)
-    ?-  -.need
-      %this  `sass.need
-      %both  `sass.need
-      %none  ~
+        %none  [[ned ned then.nex] gen]
     ==
   ::  +sect: align subject needs for branching computation
   ::
@@ -728,60 +740,48 @@
   ++  sect
     |=  [zero=next once=next]
     ^-  [[need @uwoo @uwoo] _gen]
-    =|  lose=(list pole)
-    =|  rose=(list pole)
-    =/  tack=(list (each r=@uvre [z=need o=need]))  [%| what.zero what.once]~
-    =|  salt=(list need)
+    =|  lp=(list (list pole))
+    =|  rp=(list (list pole))
+    =|  s=(list need)
+    =/  t=(list (each (unit [r=@uvre c=?]) [z=need o=need]))
+      [%| what.zero what.once]~
     |-  ^-  [[need @uwoo @uwoo] _gen]
-    ?~  tack
-      ?>  ?=([^ ~] salt)
-      =^  loan  gen  (emit ~ (flop lose) %hop then.zero)
-      =^  roan  gen  (emit ~ (flop rose) %hop then.once)
-      [[i.salt loan roan] gen]
-    ::
-    ?:  ?=(%& -.i.tack)
-      ?>  ?=([^ ^] salt)
-      $(tack t.tack, salt [[%both p.i.tack i.t.salt i.salt] t.t.salt])
-    ::
-    =*  z  z.p.i.tack
-    =*  o  o.p.i.tack
-    ?:  ?=(%none -.z)
-      :: z side has no requirements
-      :: so we should do no splitting outside conditional
+    ?~  t
+      ?>  ?=([^ ~] s)
+      =^  lu  gen  (emit ~ (zing (flop lp)) %hop then.zero)
+      =^  ru  gen  (emit ~ (zing (flop rp)) %hop then.once)
+      [[i.s lu ru] gen]
+    ?:  ?=(%& -.i.t)
+      ?>  ?=([^ ^] s)
+      =/  par  [i.t.s i.s]
+      $(t t.t, s [?~(p.i.t par [%both r.u.p.i.t c.u.p.i.t par]) t.t.s])
+    =*  z  z.p.i.t
+    =*  o  o.p.i.t
+    ?:  ?=(?(%none %this) -.z)
       ?:  ?=(%none -.o)
-        $(tack t.tack, salt [[%none ~] salt])
-      =^  rr  gen  (kern rose o)
-      $(rose pose.rr, tack t.tack, salt [[%this out.rr] salt])
-    ?:  ?=(%none -.o)
-      :: o side has no requirements
-      :: so we should do no splitting outside conditional
-      =^  lr  gen  (kern lose z)
-      $(lose pose.lr, tack t.tack, salt [[%this out.lr] salt])
-    ?:  ?=(%both -.z)
-      ::  z side splits
-      ?:  ?=(%both -.o)
-        ::  both sides split, recursively build need
-        %=  $
-          tack  [[%| left.z left.o] [%| rite.z rite.o] [%& sass.z] t.tack]
-          rose  [[%mov sass.z sass.o] rose]
-        ==
-      ::  z side splits, o side this
-      =^  lr  gen  (kern ~ z)
-      %=  $
-        lose  (welp pose.lr [[%mov sass.o out.lr] lose])
-        tack  t.tack
-        salt  [o salt]
-      ==
-    ?:  ?=(%both -.o)
-      ::  z side this, o side splits
-      =^  rr  gen  (kern ~ o)
-      %=  $
-        rose  (welp pose.rr [[%mov sass.z out.rr] rose])
-        tack  t.tack
-        salt  [z salt]
-      ==
-    ::  both sides this
-    $(rose [[%mov sass.z sass.o] rose], tack t.tack, salt [z salt])
+        $(t t.t, s [z s])
+      =^  rr=[r=@uvre p=(list pole)]  gen  (kern ~ o)
+      =?  lp  ?=(%this -.z)
+         [[%mov r.rr r.z]~ lp]
+      $(rp [p.rr rp], t t.t, s [[%this r.rr] s])
+    ::
+    ?:  ?=(?(%none %this) -.o)
+      =^  lr=[r=@uvre p=(list pole)]  gen  (kern ~ z)
+      =?  rp  ?=(%this -.o)
+         [[%mov r.lr r.o]~ rp]
+      $(lp [p.lr lp], t t.t, s [[%this r.lr] s])
+    ::
+    ?^  -.z
+      ?^  -.o
+        $(t [[%| p.z p.o] [%| q.z q.o] [%& ~] t.t])
+      $(t [[%| p.z h.o] [%| q.z t.o] [%& `[r.o |]] t.t])
+    ::
+    ?^  -.o
+      $(t [[%| h.z p.o] [%| t.z q.o] [%& `[r.z |]] t.t])
+    %=  $
+      t   [[%| h.z h.o] [%| t.z t.o] [%& `[r.z &(c.z c.o)]] t.t]
+      rp  [[%mov r.z r.o]~ rp]
+    ==
   ::  +copy: align subject needs for sequential computation
   ::
   ::    generate a need split as far as either input need is split,
@@ -796,50 +796,52 @@
   ++  copy
     |=  [feed=next seed=need]
     ^-  [next _gen]
-    =|  pose=(list pole)
-    =/  tack=(list (each @uvre [l=need r=need]))  [%| what.feed seed]~
-    =|  rack=(list need)
+    =|  p=(list pole)
+    =|  s=(list need)
+    =/  t=(list (each (unit [r=@uvre c=?]) [l=need r=need]))
+      [%| what.feed seed]~
     |-  ^-  [next _gen]
-    ?~  tack
-      ?>  ?=([^ ~] rack)
-      =^  cody  gen  (emit ~ pose %hop then.feed)
-      [[%next i.rack cody] gen]
-    ?:  ?=(%& -.i.tack)
-      ?>  ?=([^ ^] rack)
-      $(rack [[%both p.i.tack i.t.rack i.rack] t.t.rack], tack t.tack)
-    =*  l  l.p.i.tack
-    =*  r  r.p.i.tack
-    ?:  ?=(%none -.l)  $(rack [r rack], tack t.tack)
-    ?:  ?=(%none -.r)  $(rack [l rack], tack t.tack)
+    ?~  t
+      ?>  ?=([^ ~] s)
+      =^  u  gen  (emit ~ p %hop then.feed)
+      [[%next i.s u] gen]
+    ?:  ?=(%& -.i.t)
+      ?>  ?=([^ ^] s)
+      =/  par  [i.t.s i.s]
+      $(t t.t, s [?~(p.i.t par [%both r.u.p.i.t c.u.p.i.t par]) t.t.s])
+    =*  l  l.p.i.t
+    =*  r  r.p.i.t
+    ?:  ?=(%none -.l)  $(s [r s], t t.t)
+    ?:  ?=(%none -.r)  $(s [l s], t t.t)
+    ::
     ?:  ?=(%this -.l)
       ?:  ?=(%this -.r)
-        :: both this
-        =?  pose  !=(sass.l sass.r)  [[%mov sass.l sass.r] pose]
-        $(rack [l rack], tack t.tack)
-      :: left this, right both
-      ::
-      ::    this case must be handled this way in case the code that needs
-      ::    [l] will crash explicitly in some way.
-      ::
-      =^  rr  gen  (kern ~ r)
-      =.  pose  (weld (flop pose.rr) pose)
-      =?  pose  !=(sass.l out.rr)  [[%mov sass.l out.rr] pose]
-      $(tack t.tack, rack [[%this sass.l] rack])
-    ?:  ?=(%both -.r)
-      :: both both
+        ~?  =(r.l r.r)  [%copy-this-l-a r.l r.r]  :: XX strange
+        $(p [[%mov r.l r.r] p], s [l s], t t.t)
+      =^  rr=$>(%both need)  gen
+        ?@(-.r [r gen] =^(x gen rain [[%both x | r] gen]))
+      ~?  =(r.l r.rr)  [%copy-this-l-b r.l r.rr]  :: XX strange
+      $(p [[%mov r.rr r.l] p], s [rr s], t t.t)
+    ::
+    ?:  ?=(%this -.r)
+      =^  ll=$>(%both need)  gen
+        ?@(-.l [l gen] =^(x gen rain [[%both x | l] gen]))
+      ~?  =(r.ll r.r)  [%copy-this-r r.ll r.r]  :: XX strange
+      $(p [[%mov r.ll r.r] p], s [ll s], t t.t)
+    ::
+    ?:  ?=(%both -.l)
+      =^  rr=$>(%both need)  gen
+        ?@(-.r [r gen] =^(x gen rain [[%both x | r] gen]))
+      ~?  =(r.l r.rr)  [%copy-both r.l r.rr]  :: XX strange
       %=  $
-        tack  [[%| left.l left.r] [%| rite.l rite.r] [%& sass.l] t.tack]
-        pose  [[%mov sass.l sass.r] pose]
+        p  [[%mov r.rr r.l] p]
+        t  [[%| h.l h.rr] [%| t.l t.rr] [%& `[r.rr &(c.l c.rr)]] t.t]
       ==
-    ::  left both, right this
-    =^  ll  gen  ?~(lu=(sass left.l) rain [u.lu gen])
-    =^  rr  gen  ?~(ru=(sass rite.l) rain [u.ru gen])
-    :: ~&  [%copy-cons labe well.pile.gen [ll rr] into=sass.r]
-    %=  $
-      tack  [[%| left.l %this ll] [%| rite.l %this rr] [%& sass.l] t.tack]
-      :: pose  [[%con ll rr sass.r] pose]
-      pose  ?:(=(sass.l sass.r) pose [[%mov sass.l sass.r] pose])
-    ==
+    ::  ?=(%both -.r)
+    ::
+    ?^  -.r
+      $(t [[%| p.l p.r] [%| q.l q.r] [%& ~] t.t])
+    $(t [[%| p.l h.r] [%| q.l t.r] [%& `[r.r |]] t.t])
   ::
   ++  bomb                                              ::  crash
     ^-  [next _gen]
@@ -850,7 +852,8 @@
   ++  mine
     |=  [r=@uvre t=@uwoo]
     ^-  [next _gen]
-    =^  mile  gen  (emit ~ [%poi r]~ %hop t)
+    ::  NB: store 0 so that a subsequent %cel check will crash
+    =^  mile  gen  (emit ~ [%imm 0 r]~ %hop t)
     [[%next [%none ~] mile] gen]
   ::
   ++  vial                                              ::  new label
@@ -867,45 +870,50 @@
   ::    and come-from blocks
   ::
   ++  phil
-    |=  =next
-    ^-  [[^next ^next] _gen]
-    =/  tack=(list (each [zp=@uvre op=@uvre] need))  [%| what.next]~
-    =|  salt=(list [z=need o=need])
-    =|  biff=(map @uvre (map @uwoo @uvre))
+    |=  nex=next
+    ^-  [[next next] _gen]
+    =/  t=(list (each (unit [c=? z=@uvre o=@uvre]) need))  [%| what.nex]~
+    =|  s=(list [z=need o=need])
+    =|  b=(map @uvre (map @uwoo @uvre))
     =^  zb  gen  vial
     =^  ob  gen  vial
-    |-  ^-  [[_next _next] _gen]
-    ?~  tack
-      ?>  ?=([^ ~] salt)
-      =^  fill  gen  (emit biff ~ %hop then.next)
-      =^  zeke  gen  (come zb fill)
-      =^  oaks  gen  (come ob fill)
-      [[[%next z.i.salt zeke] [%next o.i.salt oaks]] gen]
+    |-  ^-  [[next next] _gen]
+    ?~  t
+      ?>  ?=([^ ~] s)
+      =^  f  gen  (emit b ~ %hop then.nex)
+      =^  z  gen  (come zb f)
+      =^  o  gen  (come ob f)
+      [[[%next z.i.s z] [%next o.i.s o]] gen]
     ::
-    ?:  ?=(%& -.i.tack)
-      ?>  ?=([^ ^] salt)
-      %=  $
-        tack  t.tack
-        salt  :_  t.t.salt
-              :-  [%both zp.p.i.tack z.i.t.salt z.i.salt]
-              [%both op.p.i.tack o.i.t.salt o.i.salt]
-      ==
-    =*  p  p.i.tack
+    ?:  ?=(%& -.i.t)
+      ?>  ?=([^ ^] s)
+      =+  ^=  [z o]
+        ?~  p.i.t
+          [[z.i.t.s z.i.s] o.i.t.s o.i.s]
+        :*  [%both z.u.p.i.t c.u.p.i.t z.i.t.s z.i.s]
+            [%both o.u.p.i.t c.u.p.i.t o.i.t.s o.i.s]
+        ==
+      $(t t.t, s [[z o] t.t.s])
+    ::
+    =*  p  p.i.t
     ?:  ?=(%none -.p)
-      $(salt [[p p] salt], tack t.tack)
+      $(s [[p p] s], t t.t)
+    ?^  -.p
+      $(t [[%| p.p] [%| q.p] [%& ~] t.t])
+    ::
     =^  l  gen  rain
     =^  r  gen  rain
     =/  fib  (~(gas by *(map @uwoo @uvre)) ~[[zb l] [ob r]])
     ?-  -.p
       %this  %=  $
-               biff  (~(put by biff) sass.p fib)
-               salt  [[[%this l] %this r] salt]
-               tack  t.tack
+               b  (~(put by b) r.p fib)
+               s  [[[%this l] %this r] s]
+               t  t.t
              ==
     ::
       %both  %=  $
-               biff  (~(put by biff) sass.p fib)
-               tack  [[%| left.p] [%| rite.p] [%& l r] t.tack]
+               b  (~(put by b) r.p fib)
+               t  [[%| h.p] [%| t.p] [%& `[c.p l r]] t.t]
     ==       ==
   ::  +scar: generate fresh parameter lists
   ::
@@ -915,118 +923,113 @@
   ++  scar
     |=  n=need
     =|  rv=(list @uvre)
-    =/  tack=(list (each @uvre need))  [%| n]~
-    =|  salt=(list need)
+    =/  t=(list (each (unit [r=@uvre c=?]) need))  [%| n]~
+    =|  s=(list need)
     |-  ^-  [[v=(list @uvre) n=need] _gen]
-    ?~  tack
-      ?>  ?=([^ ~] salt)
-      [[(flop rv) i.salt] gen]
-    ?:  ?=(%& -.i.tack)
-      ?>  ?=([^ ^] salt)
-      $(tack t.tack, salt [[%both p.i.tack i.t.salt i.salt] t.t.salt])
+    ?~  t
+      ?>  ?=([^ ~] s)
+      [[(flop rv) i.s] gen]
+    ?:  ?=(%& -.i.t)
+      ?>  ?=([^ ^] s)
+      =/  par  [i.t.s i.s]
+      $(t t.t, s [?~(p.i.t par [%both r.u.p.i.t c.u.p.i.t par]) t.t.s])
     ::
-    =*  p  p.i.tack
+    =*  p  p.i.t
     ?:  ?=(%none -.p)
-      $(tack t.tack, salt [p salt])
+      $(t t.t, s [p s])
+    ?^  -.p
+      $(t [[%| p.p] [%| q.p] [%& ~] t.t])
     =^  vr  gen  rain
     ?-  -.p
-      %both  $(tack [[%| left.p] [%| rite.p] [%& vr] t.tack])
-      %this  $(rv [vr rv], salt [[%this vr] salt], tack t.tack)
+      %both  $(t [[%| h.p] [%| t.p] [%& `[vr c.p]] t.t])
+      %this  $(t t.t, s [[%this vr] s], rv [vr rv])
     ==
   ::  +from: push need down by axis
   ::
   ++  from
-    |=  [axe=@ =next]
-    ^-  [^next _gen]
+    |=  [axe=@ nex=next]
+    ^-  [next _gen]  :: XX return need
     ?<  =(0 axe)
-    =^  crap  gen
-      =/  crop  (sass what.next)
-      ?~  crop  rain
-      [u.crop gen]
-    =?  what.next  ?=(%none -.what.next)  [%this crap]
-    ::  XX skip poison on +1 ?
-    :: ?:  =(1 axe)
-    ::   [next gen]
-    =|  bait=(list [r=@uvre c=?(%2 %3)])
-    |-  ^-  [^next _gen]
-    ?.  =(1 axe)
-      =^  barf  gen  rain
-      $(bait [[barf (cap axe)] bait], axe (mas axe))
-    =^  fram  gen  (emit ~ [%ipb ~[crap]]~ %hop then.next)
-    =/  feed
-      %+  roll  bait
-      |=  [[r=@uvre c=?(%2 %3)] n=_what.next]
-      [%both r ?:(?=(%2 c) [n %none ~] [[%none ~] n])]
-    [[%next feed fram] gen]
+    =-  [[%next - then.nex] gen]
+    =*  ned  what.nex
+    |-  ^-  need
+    ?:  =(1 axe)  ned
+    =/  lat  (mas axe)
+    ?-  (cap axe)
+      %2  [$(axe lat) [%none ~]]
+      %3  [[%none ~] $(axe lat)]
+    ==
   ::  +into: split need for edit
   ::
   ::    first returned need is for the patch noun,
   ::    the second is for the noun to be edited
   ::
   ++  into
-    |=  [axe=@ =next]
+    |=  [axe=@ nex=next]
     ^-  [[need need @uwoo] _gen]
     ?<  =(0 axe)
-    =*  twig  what.next
-    =|  tres=(list [lr=?(%2 %3) p=@uvre =need])
-    =|  pose=(list pole)
+    ?:  =(1 axe)
+      [[what.nex [%none ~] then.nex] gen]
+    =|  s=(list [h=? n=need])
+    =|  p=(list pole)
+    =*  ned  what.nex
     |-  ^-  [[need need @uwoo] _gen]
-    ?.  =(1 axe)
-      =^  p  gen  rain
-      =/  now  (cap axe)
-      =.  axe  (mas axe)
-      ?-  -.twig
-          %this
-        =^  l  gen  rain
-        =^  r  gen  rain
-        =/  =pole  [%con l r sass.twig]
-        =+  [a b]=?:(?=(%2 now) [l r] [r l])
-        $(tres [[now p %this b] tres], twig [%this a], pose [pole pose])
-      ::
-          %both
-        =^  l=$<(%none need)  gen
-          ?.  ?=(%none -.left.twig)  [left.twig gen]
-          =^(r gen rain [[%this r] gen])
-        =^  r=$<(%none need)  gen
-          ?.  ?=(%none -.rite.twig)  [rite.twig gen]
-          =^(r gen rain [[%this r] gen])
-        =/  =pole  [%con +:(sass l) +:(sass r) sass.twig]
-        =+  [a b]=?:(?=(%2 now) [l r] [r l])
-        $(tres [[now p b] tres], twig a, pose [pole pose])
-      ::
-          %none  $(tres [[now p twig] tres])
-      ==
+    ?:  =(1 axe)
+      :: XX ?~(p [then.nex gen] (emit ...))
+      =^  u  gen  (emit ~ p %hop then.nex)
+      ::  NB: depends on =(%none -:*need)
+      =/  big  (roll s |=([[h=? n=need] t=need] ?:(h [t n] [n t])))
+      [[ned big u] gen]
     ::
-    =^  flag  gen  rain
-    =^  tint  gen  (emit ~ [[%ipb ~[flag]] pose] %hop then.next)
-    =/  tree=need
-      %+  roll  tres
-      |=  [[lr=?(%2 %3) p=@uvre n=need] t=_`need`[%this flag]]
-      [%both p ?:(?=(%2 lr) [t n] [n t])]
-    [[twig tree tint] gen]
+    =+  [h lat]=[?=(%2 (cap axe)) (mas axe)]
+    ?-    -.ned
+        ^
+      =+  [a b]=?:(h ned [q.ned p.ned])
+      $(s [[h b] s], ned a, axe lat)
+    ::
+        %both
+      =^  l  gen  (must h.ned)
+      =^  r  gen  (must t.ned)
+      =/  =pole  [%con p.l p.r r.ned]
+      =+  [a b]=?:(h [q.l q.r] [q.r q.l])
+      $(s [[h b] s], ned a, p [pole p], axe lat)
+    ::
+        %this
+      =^  l  gen  rain
+      =^  r  gen  rain
+      =/  =pole  [%con l r r.ned]
+      =+  [a b]=?:(h [l r] [r l])
+      $(s [[h %this b] s], ned [%this a], p [pole p], axe lat)
+    ::
+        %none  $(s [[h ned] s], axe lat)
+    ==
   ::  +mede: split immediate into registers of need
   ::
   ++  mede
-    |=  [u=@uwoo n=* =need]
+    |=  [u=@uwoo n=* ned=need]
     ^-  [@uwoo _gen]
-    =|  todo=(list pole)
-    =/  tack=(list [n=(unit) =_need])  [`n need]~
+    =|  p=(list pole)
+    =/  s=(list [non=* ned=need])  [n ned]~
     |-  ^-  [@uwoo _gen]
-    ?~  tack
-      (emit ~ todo %hop u)
-    =*  ne  need.i.tack
-    =*  no  n.i.tack
-    ?-  -.ne
-        %this
-      =/  =pole  ?~(no [%poi sass.ne] [%imm u.no sass.ne])
-      $(todo [pole todo], tack t.tack)
+    ?~  s  (emit ~ p %hop u)
+    =*  ne  ned.i.s
+    =*  no  non.i.s
+    ?-    -.ne
+        ^
+      ?^  no
+        $(s [[+.no q.ne] [-.no p.ne] t.s])
+      =^  r  gen  rain
+      $(i.s i.s(ned [%both r | ne]))
     ::
         %both
+      ?.  |(c.ne ?=(^ no))
+        =^  y  gen  (emit ~ ~ %bom ~)
+        $(u y, s t.s)
       =^  [y=@uwoo r=@uvre]  gen  (kerf [%next ne u])
-      =/  =pole  ?~(no [%poi r] [%imm u.no r])
-      $(u y, todo [pole todo], tack t.tack)
+      $(p [[%imm ?^(no no 0) r] p], u y, s t.s) :: NB %cel crash
     ::
-        %none  $(tack t.tack)
+        %this  $(p [[%imm no r.ne] p], s t.s)
+        %none  $(s t.s)
     ==
   ::  +bede: balance need and emit %cons (reversed)
   ::
@@ -1035,39 +1038,22 @@
     ^-  [(pair (list pole) need) _gen]
     ?:  =(%none -.n)  [[~ n] gen]
     =|  out=(list pole)
-    |-  ^-  [(pair (list pole) $<(%none need)) _gen]
-    ?-    -.n
-        %this  [[out n] gen]
-        %both
-      =^  r  gen  $(n rite.n)
-      =^  l  gen  $(n left.n, out p.r)
-      =/  p  [%con +:(sass q.l) +:(sass q.r) sass.n]
-      [[[p p.l] n(left q.l, rite q.r)] gen]
-    ::
-        %none
-      =^  r  gen  rain
-      [[out [%this r]] gen]
-    ==
+    |-  ^-  [(pair (list pole) $>(?(%both %this) need)) _gen]
+    =^  [@uvre den=$>(?(%both %this) need)]  gen  (must n)
+    ?.  ?=(%both -.den)
+      [[out den] gen]
+    =^  r  gen  $(n t.den)
+    =^  l  gen  $(n h.den, out p.r)
+    =/  lr  ?:(?=(%this -.q.l) r.q.l r.q.l)
+    =/  rr  ?:(?=(%this -.q.r) r.q.r r.q.r)
+    [[[[%con lr rr r.den] p.l] den(h q.l, t q.r)] gen]
   --
 ::  +sede: restrict need by sock
 ::
 ++  sede
   |=  [n=need s=sock out=(list pole)]
   ^-  (pair (list pole) need)
-  ?-  -.n
-    %this  ?.  ?=(%& cape.s)  [out n]
-           [[[%imm data.s sass.n] out] [%none ~]]
-  ::
-    %both  ?:  |(?=(%| cape.s) ?=(~ data.s))  [out n]
-           =/  c  ?@(cape.s [& &] cape.s)
-           =/  r  $(n rite.n, data.s +.data.s, cape.s -.c)
-           =/  l  $(n left.n, data.s -.data.s, cape.s +.c, out p.r)
-           :-  p.l
-           ?:  &(?=(%none -.q.l) ?=(%none -.q.r))  q.l
-           n(left q.l, rite q.r)
-  ::
-    %none  [out n]
-  ==
+  [out n] :: XX
 ::  +sill: list of registers from a need
 ::
 ++  sill
@@ -1077,8 +1063,9 @@
   |-  ^-  (list @uvre)
   ?~  tack  wart
   ?-  -.i.tack
-    %this  $(wart [sass.i.tack wart], tack t.tack)
-    %both  $(tack [rite.i.tack left.i.tack t.tack])
+    ^      $(tack [q.i.tack p.i.tack t.tack])
+    %this  $(wart [r.i.tack wart], tack t.tack)
+    %both  $(tack [t.i.tack h.i.tack t.tack])
     %none  $(tack t.tack)
   ==
 ::  +mill: loop over redos
@@ -1188,13 +1175,19 @@
         =|  out=tape
         |-  ^+  out
         ?-  -.n
-            %this  (weld (r sass.n) out)
-            %none  ['~' out]
-            %both  =/  l=(lest need)
+            ^      =/  l=(lest need)
                       |-  ^-  (lest need)
-                      ?.  ?=(%both -.rite.n)
-                        [left.n rite.n ~]
-                      [left.n $(n rite.n)]
+                      ?.  ?=(^ -.q.n)
+                        [p.n q.n ~]
+                      [p.n $(n q.n)]
+                   ['[' $(n i.l, out (reel t.l |=([n=need out=_[']' out]] [' ' ^$(n n, out out)])))]
+            %this  (weld (r r.n) out)
+            %none  ['~' out]
+            %both  =/  l=(lest need)  :: XX {r.n}=[...]
+                      |-  ^-  (lest need)
+                      ?.  ?=(%both -.t.n)
+                        [h.n t.n ~]
+                      [h.n $(n t.n)]
                    ['[' $(n i.l, out (reel t.l |=([n=need out=_[']' out]] [' ' ^$(n n, out out)])))]
         ==
       ++  sym  |=(s=@ta `tape`['%' (trip s)]) :: XX
@@ -1226,6 +1219,7 @@
           %con  "NOUN_DECL {(r d.p)} = CONS({(r h.p)}, {(r t.p)});"
           %hed  "NOUN_DECL {(r d.p)} = HEAD({(r s.p)});"
           %tal  "NOUN_DECL {(r d.p)} = TAIL({(r s.p)});"
+          %cel  "ASSERT(IS_CELL({(r p.p)}));"
           %men  "MEAN_PUSH(SYMBOL({(sym l.p)}), {(r s.p)});"
           %man  "MEAN_POP();"
           %slo  "SLOW_PUSH({(r s.p)});"
@@ -1236,66 +1230,65 @@
           %tim  "BOUT_START();"
           %tom  "BOUT_STOP();"
           %mem  "MEME_SLOG();"
-          %poi  "NOUN_DECL {(r p.p)} = POISON;"
-          %ipb  (roll p.p |=([i=@uvre o=tape] (weld "CHECK({(r i)});" o)))
         ==
       ++  c-site
         |=  s=site
-        ^-  [[(unit @uxor) (list @uwoo)] wall]
+        ^-  [[(unit @uxor) (pair (unit @uwoo) (unit @uwoo))] wall]
         ?-  -.s
-          %clq  :~  `[z.s o.s ~]
+          %clq  :~  `[`z.s `o.s]
                     "if ( IS_CELL({(r s.s)}) ) goto {(l z.s)};"
                     "else goto {(l o.s)};"
                 ==
-          %eqq  :~  `[z.s o.s ~]
+          %eqq  :~  `[`z.s `o.s]
                     "if ( IS_EQUAL({(r l.s)}, {(r r.s)}) ) goto {(l z.s)};"
                     "else goto {(l o.s)};"
                 ==
-          %brn  :~  `[z.s o.s ~]
+          %brn  :~  `[`z.s `o.s]
                     "switch ( {(r s.s)} ) \{"
                     "  case 0: goto {(l z.s)};"
                     "  case 1: goto {(l o.s)};"
                     "  default: BAIL();"
                     "}"
                 ==
-          %hop  [`[t.s ~] "goto {(l t.s)};" ~]
+          %hop  [`[`t.s ~] "goto {(l t.s)};" ~]
           %hip  ~|(%strange-hip !!)
-          %lnk  :~  `[t.s ~]
+          %lnk  :~  `[`t.s ~]
                     "NOUN_DECL {(r d.s)} = NOCK({(r u.s)}, {(r f.s)});"
                     "goto {(l t.s)};"
                 ==
-          %cal  :~  [`a.s t.s ~]
+          %cal  :~  [`a.s `t.s ~]
                     "NOUN_DECL {(r d.s)} = {(f a.s)}({(c-args v.s)});"
                     "goto {(l t.s)};"
                 ==
-          %caf  :~  [`a.s t.s ~]
+          %caf  :~  [`a.s `t.s ~]
                     "// jet: {(spud -.n.s)} +{(scow %ud +.n.s)}"
                     "NOUN_DECL {(r d.s)} = {(f a.s)}({(c-args v.s)});"
                     "goto {(l t.s)};"
                 ==
-          %lnt  [`~ "return NOCK({(r u.s)}, {(r f.s)});" ~]
-          %jmp  [[`a.s ~] "return {(f a.s)}({(c-args v.s)});" ~]
-          %jmf  :~  [`a.s ~]
+          %lnt  [`[~ ~] "return NOCK({(r u.s)}, {(r f.s)});" ~]
+          %jmp  [[`a.s ~ ~] "return {(f a.s)}({(c-args v.s)});" ~]
+          %jmf  :~  [`a.s ~ ~]
                     "// jet: {(spud -.n.s)} +{(scow %ud +.n.s)}"
                     "return {(f a.s)}({(c-args v.s)});"
                 ==
-          %spy  :~  `[t.s ~]
+          %spy  :~  `[`t.s ~]
                     "NOUN_DECL {(r d.s)} = SCRY({(r e.s)}, {(r p.s)});"
                     "goto {(l t.s)};"
                 ==
-          %mer  :~  `[i.s m.s ~]
+          %mer  :~  `[`i.s `m.s]
                     "MEMO_DECL {(r d.s)} = CHECK_MEMO({(r k.s)}, {(r u.s)}, {(r f.s)});"
                     "if ( IS_MEMO({(r d.s)}) ) goto {(l i.s)};"
                     "else goto {(l m.s)};"
                 ==
-          %don  [`~ "return {(r s.s)};" ~]
-          %bom  [`~ "BAIL();" ~]
+          %don  [`[~ ~] "return {(r s.s)};" ~]
+          %bom  [`[~ ~] "BAIL();" ~]
         ==
       ++  c-blob
         |=  [u=@uwoo b=blob]
-        ^-  [(unit @uxor) (list @uwoo) wain]
+        ^-  [(unit @uxor) (pair (unit @uwoo) (unit @uwoo)) wain]
         =|  w=wain
-        =/  [[ux=(unit @uxor) uw=(list @uwoo)] wa=wall]  (c-site bend.b)
+        =/  [[ux=(unit @uxor) uw=(pair (unit @uwoo) (unit @uwoo))] wa=wall]
+          (c-site bend.b)
         =.  w  (weld (turn wa |=(t=tape (crip [' ' ' ' t]))) w)
         =.  w  (reel body.b |=([p=pole =_w] [(crip [' ' ' ' (c-pole p)]) w]))
         [ux uw ['' (crip (weld (l u) ":")) w]]
@@ -1319,6 +1312,7 @@
     ?.  =(~ xob)
       $(box (flop xob), xob ~)
     =/  fun=wain  (zing (flop [`wain`['}' ~] bot]))
+    ::  NB: this rendering of block 0w0 depends on +fuse:py
     =.  fun  (welp ['/*' +>+:(c-blob 0w0 (~(got by will.p) 0w0))] ['*/' fun])
     =.  fun
       :*  (crip ['/' '/' ' ' ' ' (n q:(~(got by peal.fuji) bell.p))])
@@ -1336,16 +1330,17 @@
     =?  fun  ?=(^ area.n)
       [(crip ['/' '/' ' ' ' ' ~(ram re (ren:blot:sack u.area.n))]) fun]
     ^$(fot [fun fot], fox (weld (flop xof) t.fox))
-  =/  [ux=(unit @uxor) uw=(list @uwoo) wa=wain]
+  =/  [ux=(unit @uxor) uw=(pair (unit @uwoo) (unit @uwoo)) wa=wain]
     (c-blob i.box (~(got by will.p) i.box))
   =.  ux  `(unit @uxor)`?:(|(?=(~ ux) (~(has in fen) u.ux)) ~ `u.ux)
-  =.  uw  (flop (skip uw ~(has in ben)))
+  =.  p.uw  `(unit @uwoo)`?:(|(?=(~ p.uw) (~(has in ben) u.p.uw)) ~ `u.p.uw)
+  =.  q.uw  `(unit @uwoo)`?:(|(?=(~ q.uw) (~(has in ben) u.q.uw)) ~ `u.q.uw)
   %=  $
     xof  ?~(ux xof [u.ux xof])
     fen  ?~(ux fen (~(put in fen) u.ux))
     bot  [wa bot]
-    box  t.box
-    xob  (weld uw xob)
-    ben  (~(gas in ben) uw)
+    box  ?~(p.uw t.box [u.p.uw t.box])
+    xob  ?~(q.uw xob [u.q.uw xob])
+    ben  (~(gas in ben) (weld (drop p.uw) (drop q.uw)))
   ==
 --

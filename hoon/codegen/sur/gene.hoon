@@ -32,8 +32,9 @@
 ::  labels axes of an abstract noun with SSA registers, possibly
 ::  ignoring some axes
 +$  need
-  $%  [%this sass=@uvre]
-      [%both sass=@uvre left=need rite=need]
+  $^  [p=need q=need]
+  $%  [%both r=@uvre c=? h=need t=need]
+      [%this r=@uvre]
       [%none ~]
   ==
 ::    linear control flow
@@ -49,7 +50,7 @@
 ::  %done: nock is in tail position, return result
 ::  %next: jump to given label with result in given $need
 +$  goal
-  $%  [%pick sass=@uvre zero=@uwoo once=@uwoo]
+  $%  [%pick zero=@uwoo once=@uwoo]
       [%done ~]
       [%next what=need then=@uwoo]
   ==
@@ -85,6 +86,7 @@
 ::  %coc - crash immediately if s is an atom
 ::  %hed - write head of s to d. Poison s if s is an atom
 ::  %tal - write tail of s to d. Poison s if s is an atom
+::  %cel - crash if p is an atom
 ::  %men - Push s onto the mean stack.
 ::  %man - Pop the mean stack
 ::  %slo - Push s onto the slow stack.
@@ -95,8 +97,6 @@
 ::  %tim - Push a timer onto the timer stack and start it
 ::  %tom - Pop a timer from the timer stack, stop it, and print elapsed
 ::  %mem - Print memory usage
-::  %poi - Poison d
-::  %ibp - If any register in s is poisoned, crash.
 +$  pole
   $%  [%imm n=* d=@uvre]
       [%mov s=@uvre d=@uvre]
@@ -104,6 +104,7 @@
       [%con h=@uvre t=@uvre d=@uvre]
       [%hed s=@uvre d=@uvre]
       [%tal s=@uvre d=@uvre]
+      [%cel p=@uvre]
       [%men l=@ta s=@uvre]
       [%man ~]
       [%slo s=@uvre]
@@ -114,8 +115,6 @@
       [%tim ~]
       [%tom ~]
       [%mem ~]
-      [%poi p=@uvre]
-      [%ipb p=(list @uvre)]
   ==
 ::
 ::    origin description
