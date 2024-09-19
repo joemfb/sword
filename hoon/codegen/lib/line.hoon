@@ -7,6 +7,17 @@
 =|  =fuji
 =>
 |%
++$  nogs
+  $:  ali=(map @uvre @uvre)
+      cel=(set @uvre)
+      dad=(map [@uvre @uvre] @uvre)
+      hed=(map @uvre @uvre)
+      tel=(map @uvre @uvre)
+      lit=(map @uvre *)
+      def=(map @uvre (pair @uwoo (each pole site)))
+      use=(jar @uvre (pair @uwoo (each pole site)))
+  ==
+::
 ++  heed
   |=  s=site
   ^-  (list @uwoo)
@@ -76,12 +87,13 @@
     =|  bak=(list @uwoo)
     =/  for=(list @uwoo)  [0w0 0w1 ~]
     =/  hav  (~(gas in *(set @uwoo)) for)
+    =|  nog=nogs  :: XX init [cel] &c from $need and/or $sock
     |-  ^+  wan
     ?~  for
       ?^  bak
         $(for (flop bak), bak ~)
       ?>(&((~(has by wan) 0w0) (~(has by wan) 0w1)) wan)
-    =/  b  (link i.for fum)
+    =^  b  nog  (norm i.for nog (link i.for fum))
     =/  nex  (flop (skip (heed bend.b) ~(has in hav)))
     %=  $
       for  t.for
@@ -102,6 +114,235 @@
     ?>  =(i i.tar)
     =/  nex  $(b (~(got by will.p) t.bend.b), i t.bend.b)
     [(weld body.b p.nex) q.nex]
+  ::
+  ::  normalizing optimization
+  ::
+  ::    remove redundancy in registers, cons/decons, cell assertions,
+  ::    construct def/use chains
+  ::
+  ++  norm
+    |=  [u=@uwoo nog=nogs b=blob]
+    =|  new=(list pole)
+    |^  ^-  [blob nogs]
+        ?~  body.b
+          =^  s  nog  (bend bend.b)
+          [b(body (flop new), bend s) nog]
+        =^  p  nog  (body i.body.b)
+        ?~  p
+          $(body.b t.body.b)
+        ?:  ?&  ?=(^ new)
+                ?|  &(?=(%men -.i.new) ?=(%man -.u.p))
+                    &(?=(%slo -.i.new) ?=(%sld -.u.p))
+                    &(?=(%tim -.i.new) ?=(%tom -.u.p))
+            ==  ==
+          $(body.b t.body.b, new t.new)
+        $(body.b t.body.b, new [u.p new])
+    ::
+    ++  body
+      |=  p=pole
+      ^-  [(unit pole) _nog]
+      ?-    -.p
+          %imm
+        :-  `p
+        %=  nog
+          cel  ?@(n.p cel.nog (~(put in cel.nog) d.p))
+          lit  (~(put by lit.nog) d.p n.p)
+          def  (~(put by def.nog) d.p [u &+p])
+        ==
+      ::
+          %mov
+        =.  s.p  ?~(h=(~(get by ali.nog) s.p) s.p u.h)
+        [~ nog(ali (~(put by ali.nog) d.p s.p))]
+      ::
+          %inc
+        =.  s.p  ?~(h=(~(get by ali.nog) s.p) s.p u.h)
+        :-  `p
+        %=  nog
+          def  (~(put by def.nog) d.p [u &+p])
+          use  (~(add ja use.nog) s.p [u &+p])
+        ==
+      ::
+          %con
+        =.  h.p  ?~(h=(~(get by ali.nog) h.p) h.p u.h)
+        =.  t.p  ?~(h=(~(get by ali.nog) t.p) t.p u.h)
+        ?^  dad=(~(get by dad.nog) h.p t.p)
+          [~ nog(ali (~(put by ali.nog) d.p u.dad))]
+        :-  `p
+        %=  nog
+          cel  (~(put in cel.nog) d.p)
+          dad  (~(put by dad.nog) [h.p t.p] d.p)
+          hed  (~(put by hed.nog) d.p h.p)
+          tel  (~(put by tel.nog) d.p t.p)
+          def  (~(put by def.nog) d.p [u &+p])
+          use  (~(add ja (~(add ja use.nog) h.p [u &+p])) t.p [u &+p])
+        ==
+      ::
+          %hed
+        =.  s.p  ?~(h=(~(get by ali.nog) s.p) s.p u.h)
+        ?^  hed=(~(get by hed.nog) s.p)
+          [~ nog(ali (~(put by ali.nog) d.p u.hed))]
+        :-  `p
+        =/  lit=(unit)
+          ?~  dad=(~(get by lit.nog) s.p)  ~
+          ?@(u.dad ~ `-.u.dad)
+        %=  nog
+          lit  ?~(lit lit.nog (~(put by lit.nog) d.p u.lit))
+          cel  ?.(?=([~ ^] lit) cel.nog (~(put in cel.nog) d.p))
+          hed  (~(put by hed.nog) s.p d.p)
+          def  (~(put by def.nog) d.p [u &+p])
+          use  (~(add ja use.nog) s.p [u &+p])
+        ==
+      ::
+          %tal
+        =.  s.p  ?~(h=(~(get by ali.nog) s.p) s.p u.h)
+        ?^  tal=(~(get by tel.nog) s.p)
+          [~ nog(ali (~(put by ali.nog) d.p u.tal))]
+        :-  `p
+        =/  lit=(unit)
+          ?~  dad=(~(get by lit.nog) s.p)  ~
+          ?@(u.dad ~ `+.u.dad)
+        =/  hed  (~(get by hed.nog) s.p)
+        %=  nog
+          lit  ?~(lit lit.nog (~(put by lit.nog) d.p u.lit))
+          cel  ?.(?=([~ ^] lit) cel.nog (~(put in cel.nog) d.p))
+          dad  ?~(hed dad.nog (~(put by dad.nog) [u.hed d.p] s.p))
+          tel  (~(put by tel.nog) s.p d.p)
+          def  (~(put by def.nog) d.p [u &+p])
+          use  (~(add ja use.nog) s.p [u &+p])
+        ==
+      ::
+          %cel
+        =.  p.p  ?~(h=(~(get by ali.nog) p.p) p.p u.h)
+        ?:  (~(has in cel.nog) p.p)
+          [~ nog]
+        :-  `p
+        %=  nog
+          cel  (~(put in cel.nog) p.p)
+          use  (~(add ja use.nog) p.p [u &+p])
+        ==
+      ::
+          %men
+        =.  s.p  ?~(h=(~(get by ali.nog) s.p) s.p u.h)
+        [`p nog]
+      ::
+          ?(%slo %hit %slg)
+        =.  s.p  ?~(h=(~(get by ali.nog) s.p) s.p u.h)
+        [`p nog(use (~(add ja use.nog) s.p [u &+p]))]
+      ::
+          %mew
+        =.  k.p  ?~(h=(~(get by ali.nog) k.p) k.p u.h)
+        =.  u.p  ?~(h=(~(get by ali.nog) u.p) u.p u.h)
+        =.  f.p  ?~(h=(~(get by ali.nog) f.p) f.p u.h)
+        =.  r.p  ?~(h=(~(get by ali.nog) r.p) r.p u.h)
+        =.  use.nog  (~(add ja use.nog) k.p [u &+p])
+        =.  use.nog  (~(add ja use.nog) u.p [u &+p])
+        =.  use.nog  (~(add ja use.nog) f.p [u &+p])
+        =.  use.nog  (~(add ja use.nog) r.p [u &+p])
+        [`p nog]
+      ::
+          ?(%man %sld %tim %tom %mem)
+        [`p nog]
+      ==
+    ::
+    ++  bend
+      |=  s=site
+      ^-  [site _nog]  :: XX only def and use, maybe cel
+      ?-    -.s
+          %clq
+        =.  s.s  ?~(h=(~(get by ali.nog) s.s) s.s u.h)
+        [s nog(use (~(add ja use.nog) s.s [u |+s]))] :: XX add ja cell for [z]
+      ::
+          %eqq
+        =.  l.s  ?~(h=(~(get by ali.nog) l.s) l.s u.h)
+        =.  r.s  ?~(h=(~(get by ali.nog) r.s) r.s u.h)
+        =.  use.nog  (~(add ja use.nog) l.s [u |+s])
+        =.  use.nog  (~(add ja use.nog) r.s [u |+s])
+        [s nog]
+      ::
+          %brn
+        =.  s.s  ?~(h=(~(get by ali.nog) s.s) s.s u.h)
+        [s nog(use (~(add ja use.nog) s.s [u |+s]))]
+      ::
+          %lnk
+        =.  u.s  ?~(h=(~(get by ali.nog) u.s) u.s u.h)
+        =.  f.s  ?~(h=(~(get by ali.nog) f.s) f.s u.h)
+        :-  s
+        %=  nog
+          def  (~(put by def.nog) d.s [u |+s])
+          use  (~(add ja (~(add ja use.nog) u.s [u |+s])) f.s [u |+s])
+        ==
+      ::
+          %cal
+        =.  v.s  (turn v.s |=(a=@uvre ?~(h=(~(get by ali.nog) a) a u.h)))
+        :-  s
+        %=  nog
+          def  (~(put by def.nog) d.s [u |+s])
+          use  (roll v.s |=([a=@uvre use=_use.nog] (~(add ja use) a [u |+s])))
+        ==
+      ::
+          %caf
+        =.  v.s  (turn v.s |=(a=@uvre ?~(h=(~(get by ali.nog) a) a u.h)))
+        =.  u.s  ?~(h=(~(get by ali.nog) u.s) u.s u.h)
+        =.  use.nog  (~(add ja use.nog) u.s [u |+s])
+        :-  s
+        %=  nog
+          def  (~(put by def.nog) d.s [u |+s])
+          use  (roll v.s |=([a=@uvre use=_use.nog] (~(add ja use) a [u |+s])))
+        ==
+      ::
+          %lnt
+        =.  u.s  ?~(h=(~(get by ali.nog) u.s) u.s u.h)
+        =.  f.s  ?~(h=(~(get by ali.nog) f.s) f.s u.h)
+        :-  s
+        %=  nog
+          use  (~(add ja (~(add ja use.nog) u.s [u |+s])) f.s [u |+s])
+        ==
+      ::
+          %jmp
+        =.  v.s  (turn v.s |=(a=@uvre ?~(h=(~(get by ali.nog) a) a u.h)))
+        :-  s
+        %=  nog
+          use  (roll v.s |=([a=@uvre use=_use.nog] (~(add ja use) a [u |+s])))
+        ==
+      ::
+          %jmf
+        =.  v.s  (turn v.s |=(a=@uvre ?~(h=(~(get by ali.nog) a) a u.h)))
+        =.  u.s  ?~(h=(~(get by ali.nog) u.s) u.s u.h)
+        =.  use.nog  (~(add ja use.nog) u.s [u |+s])
+        :-  s
+        %=  nog
+          use  (roll v.s |=([a=@uvre use=_use.nog] (~(add ja use) a [u |+s])))
+        ==
+      ::
+          %spy
+        =.  e.s  ?~(h=(~(get by ali.nog) e.s) e.s u.h)
+        =.  p.s  ?~(h=(~(get by ali.nog) p.s) p.s u.h)
+        :-  s
+        %=  nog
+          def  (~(put by def.nog) d.s [u |+s])
+          use  (~(add ja (~(add ja use.nog) e.s [u |+s])) p.s [u |+s])
+        ==
+      ::
+          %mer
+        =.  k.s  ?~(h=(~(get by ali.nog) k.s) k.s u.h)
+        =.  u.s  ?~(h=(~(get by ali.nog) u.s) u.s u.h)
+        =.  f.s  ?~(h=(~(get by ali.nog) f.s) f.s u.h)
+        =.  use.nog  (~(add ja use.nog) k.s [u |+s])
+        =.  use.nog  (~(add ja use.nog) u.s [u |+s])
+        =.  use.nog  (~(add ja use.nog) f.s [u |+s])
+        :-  s
+        %=  nog
+          def  (~(put by def.nog) d.s [u |+s])
+        ==
+      ::
+          %don
+        =.  s.s  ?~(h=(~(get by ali.nog) s.s) s.s u.h)
+        [s nog(use (~(add ja use.nog) s.s [u |+s]))]
+      ::
+          ?(%bom %hip %hop)
+        [s nog]
+      ==
+    --
   --
 ::    get analysis result by bell
 ::
